@@ -16,8 +16,7 @@ os.system("clear")
 baner= pyfiglet.figlet_format("DoxPhone")
 print(GREEN+baner)
 print(YELLOW+"\nAutor: L.C.A HACK")
-print("YouTube: L.C.A HACK")
-print("Contactame: https://t.me/LCAHACK576\n\n")
+print("YouTube: new L.C.A HACK")
 print(GREEN+"escribe el numero de telefono junto\ncon el prefijo, ejemplo: +523313002435\n")
 # Información
 
