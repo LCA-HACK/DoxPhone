@@ -21,7 +21,7 @@ print("Contactame: https://t.me/LCAHACK576\n\n")
 print(GREEN+"escribe el numero de telefono junto\ncon el prefijo, ejemplo: +523313002435\n")
 # Información
 
-api_key = '4de874f562aa82abbf9a43d8b8c9b1c3'
+api_key = 'd24e62762fe644d73f44de90ad7a7c2f'
 number = int(input(GREEN+"Numero de telefono: "+RESET))
 
 data = requests.get("http://apilayer.net/api/validate?access_key=%s&number=%s&country_code&format=1" % (api_key, number))
