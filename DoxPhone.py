@@ -20,7 +20,7 @@ print("YouTube: new L.C.A HACK")
 print(GREEN+"escribe el numero de telefono junto\ncon el prefijo, ejemplo: +523313002435\n")
 # Información
 
-api_key = 'd24e62762fe644d73f44de90ad7a7c2f'
+api_key = '5907c09168069433ea56f9ae76e8c0d7'
 number = int(input(GREEN+"Numero de telefono: "+RESET))
 
 data = requests.get("http://apilayer.net/api/validate?access_key=%s&number=%s&country_code&format=1" % (api_key, number))
