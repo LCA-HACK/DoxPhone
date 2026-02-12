@@ -1,31 +1,86 @@
-# -*- coding: UTF-8
-# SI VAS A COPIAR, DAME CREDITOS >:l   BY L.C.A HACK
-import requests
+# -*- coding: utf-8 -*-
+# DOXPHONE OFFLINE PRO
+# BY L.C.A HACK
+
+import phonenumbers
+from phonenumbers import geocoder, carrier, timezone
 import pyfiglet
 import os
-BLACK = '\033[30m'
-RED = '\033[31m'
+import time
+from datetime import datetime
+
+# ====== COLORES ======
 GREEN = '\033[32m'
 YELLOW = '\033[33m'
-BLUE = '\033[34m'
-MAGENTA = '\033[35m'
 CYAN = '\033[36m'
-WHITE = '\033[37m'
+RED = '\033[31m'
+MAGENTA = '\033[35m'
 RESET = '\033[39m'
+
 os.system("clear")
-baner= pyfiglet.figlet_format("DoxPhone")
-print(GREEN+baner)
-print(YELLOW+"\nAutor: L.C.A HACK")
-print("YouTube: new L.C.A HACK")
-print(GREEN+"escribe el numero de telefono junto\ncon el prefijo, ejemplo: +523313002435\n")
-# Información
 
-api_key = '71c9a91b73291f84764eda1c5ccba175'
-number = int(input(GREEN+"Numero de telefono: "+RESET))
+# ====== BANNER HACKER ======
+banner = pyfiglet.figlet_format("DOXPHONE", font="slant")
+print(MAGENTA + banner)
+print(GREEN + ">> OFFLINE EDITION")
+print(YELLOW + ">> BY L.C.A HACK")
+print(CYAN + "----------------------------------------")
+print(GREEN + "Ingresa el número con prefijo internacional")
+print("Ejemplo: +523313002435\n")
 
-data = requests.get("http://apilayer.net/api/validate?access_key=%s&number=%s&country_code&format=1" % (api_key, number))
+numero = input(CYAN + "TARGET >> " + RESET)
 
-for key, value in data.json().items():
+# ====== ANIMACIÓN ======
+print(YELLOW + "\n[+] Iniciando escaneo...")
+time.sleep(1)
+print("[+] Analizando estructura...")
+time.sleep(1)
+print("[+] Consultando base de datos local...")
+time.sleep(1)
 
-    print("%s: %s" % (key, value))
+try:
+    parsed = phonenumbers.parse(numero)
 
+    valido = phonenumbers.is_valid_number(parsed)
+    posible = phonenumbers.is_possible_number(parsed)
+    pais = geocoder.description_for_number(parsed, "es")
+    operador = carrier.name_for_number(parsed, "es")
+    zona = ", ".join(timezone.time_zones_for_number(parsed))
+
+    tipo_num = phonenumbers.number_type(parsed)
+
+    resultado = f"""
+========================================
+        DOXPHONE OFFLINE REPORT
+========================================
+Numero ingresado: {numero}
+Numero formateado: {phonenumbers.format_number(parsed, phonenumbers.PhoneNumberFormat.INTERNATIONAL)}
+
+Es valido: {valido}
+Es posible: {posible}
+Pais / Region: {pais}
+Operador: {operador}
+Zona horaria: {zona}
+Tipo: {tipo_num}
+
+Escaneo completado: {datetime.now()}
+========================================
+"""
+
+    print(GREEN + "\n[+] ESCANEO COMPLETADO\n")
+    print(resultado)
+
+    # ====== GUARDAR RESULTADO ======
+    if not os.path.exists("results"):
+        os.makedirs("results")
+
+    fecha = datetime.now().strftime("%Y%m%d_%H%M%S")
+    nombre_archivo = f"results/{numero}_{fecha}.txt".replace("+", "")
+
+    with open(nombre_archivo, "w", encoding="utf-8") as f:
+        f.write(resultado)
+
+    print(CYAN + f"[+] Reporte guardado en: {nombre_archivo}")
+
+except phonenumbers.NumberParseException:
+    print(RED + "\n[-] Numero invalido o mal formateado.")
